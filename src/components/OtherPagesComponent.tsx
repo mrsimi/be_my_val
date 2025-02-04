@@ -10,15 +10,19 @@ interface PageContent {
 interface OtherPagesComponentProps {
 	title: string;
 	imagesContent: PageContent[];
-    currentPage: number;
-	handleCheckboxChange: (value: string, checked: boolean, currentPage: number) => void; // Defining the prop type
+	currentPage: number;
+	handleCheckboxChange: (
+		value: string,
+		checked: boolean,
+		currentPage: number
+	) => void; // Defining the prop type
 }
 
 export default function OtherPagesComponent({
 	title,
 	imagesContent,
 	handleCheckboxChange,
-    currentPage
+	currentPage,
 }: OtherPagesComponentProps) {
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -37,29 +41,28 @@ export default function OtherPagesComponent({
 	};
 
 	return (
-		<div className="bg-black text-pink-300 p-4 h-screen flex items-center justify-center font-mono flex-col">
+		<div className="bg-black text-pink-300 p-4 h-screen flex items-center justify-center font-mono flex-col text-center">
 			<p className="uppercase text-2xl font-bold mb-4">{title}</p>
-			<div className="flex flex-row gap-10">
+			<div className="flex flex-wrap gap-3 justify-center items-center">
 				{imagesContent.map((image, index) => (
 					<div
 						key={index}
-						className="mt-10"
+						className="mt-10 w-1/3"
 						onClick={() => handleImageClick(image.imageTitle)}
 					>
-                        {selectedImage === image.imageTitle && (
-							<div className="mt-10 text-center text-pink-500">Selected</div>
+						{selectedImage === image.imageTitle && (
+							<div className="mt-2 text-center text-pink-500">Selected</div>
 						)}
 						<img
-							className="block cursor-pointer"
+							className="block cursor-pointer w-full h-auto max-h-80 object-contain"
 							src={image.imageUrl}
 							alt={`Valentine GIF ${index + 1}`}
-							style={{ height: '300px' }}
 						/>
-                        <p style={{width: '50%'}}>{image.imageTitle}</p>
-						
+						<p className="text-center mt-2">{image.imageTitle}</p>
 					</div>
 				))}
 			</div>
+
 			<div className="mt-10">
 				<button
 					className="px-10 py-2 bg-pink-300 mx-10 text-black uppercase rounded-md"

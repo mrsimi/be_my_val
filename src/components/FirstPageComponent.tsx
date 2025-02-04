@@ -15,20 +15,19 @@ interface FirstPageComponentProps {
           src="https://media.giphy.com/media/GiWEowj3nQv9C/giphy.gif?cid=ecf05e47zeciqnibvove59pww25lobrti585aq3hnl5tdsnv&ep=v1_gifs_related&rid=giphy.gif&ct=g"
           alt="Valentine GIF"
         />
-        <div className="mt-10">
-          <button
-            className="px-10 py-2 bg-pink-300 mx-10 text-black uppercase rounded-md"
+        <button
+            className="px-10 py-2 bg-pink-300 mx-10 text-black uppercase rounded-md mt-10"
             onClick={() => pageClicked('yes')} // Correctly passing 'yes' when the button is clicked
           >
             Yes
           </button>
+        
           <button
-            className="px-10 py-2 bg-black mx-10 text-white border-2 uppercase rounded-md"
+            className="px-10 py-2 bg-black mx-10 text-white border-2 uppercase rounded-md mt-10"
             onClick={() => pageClicked('no')} // Correctly passing 'no' when the button is clicked
           >
             No
           </button>
-        </div>
       </div>
     );
   }

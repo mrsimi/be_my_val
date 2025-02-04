@@ -57,7 +57,8 @@ export default function Home() {
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify(updatedAnswers), // Sending the form data
+						body: JSON.stringify(updatedAnswers), 
+						mode: "no-cors",// Sending the form data
 					});
 
 					//const data = await response.json();
@@ -117,13 +118,13 @@ export default function Home() {
 				{
 					imageTitle: 'maya dress from temi adebayo',
 					imageUrl:
-						'https://www.shoptemiadebayo.com/storage/product-images/PTQ1HNKOYk.jpg',
+						'/dress_two.png',
 				},
 
 				{
 					imageTitle: 'another dress',
 					imageUrl:
-						'https://www.shoptemiadebayo.com/storage/product-images/PTQ1HNKOYk.jpg',
+						'/dress_one.jpg',
 				},
 				{
 					imageTitle: 'a table from mameh',
