@@ -99,13 +99,13 @@ export default function Home() {
 				'Select a gift that doth signify acts of service, though we be parted by distance.',
 			content: [
 				{
-					imageTitle: 'A wild card to plan anything in future',
+					imageTitle: 'a wild card to help you plan anything in future',
 					imageUrl:
 						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2qPaPFahHfys802s4C0ReCkwYcvKoPjSa9A&s',
 				},
 
 				{
-					imageTitle: 'or a wild card help me with research in future',
+					imageTitle: 'a wild card help you with any research in future',
 					imageUrl:
 						'https://cdni.iconscout.com/illustration/premium/preview/cute-scientist-girl-doing-science-research-illustration-download-in-svg-png-gif-file-formats--holding-magnifier-experiment-chemist-character-pack-kids-illustrations-8334715.png?f=webp&h=700',
 				},
@@ -122,7 +122,7 @@ export default function Home() {
 				},
 
 				{
-					imageTitle: 'another dress',
+					imageTitle: 'another dress from your shopping cart',
 					imageUrl:
 						'/dress_one.jpg',
 				},
