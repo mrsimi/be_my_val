@@ -1,101 +1,222 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
+// At the top of your component file
+'use client';
+
+import { useState } from 'react';
+
+import FirstPageComponent from '@/components/FirstPageComponent';
+import OtherPagesComponent from '@/components/OtherPagesComponent';
+
+interface PageContent {
+	imageTitle: string;
+	imageUrl: string;
+}
+
+interface AppPages {
+	page: number;
+	title: string;
+	content: PageContent[];
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+	const [, setAnswers] = useState<string[]>([]);
+	const [pageNumber, setPageNumber] = useState<number>(0);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+	const pageOneClicked = (answer: string) => {
+		if (answer === 'yes') {
+			setPageNumber(1);
+		} else {
+			setPageNumber(-1);
+		}
+	};
+
+	const handleCheckboxChange = (
+		imageUrl: string,
+		checked: boolean,
+		currentPage: number
+	) => {
+		if (checked) {
+			// Use functional form of setAnswers to ensure you're always updating with the latest state
+			setAnswers((prevAnswers) => {
+				const updatedAnswers = [...prevAnswers, imageUrl];
+
+				if (currentPage == 5) {
+					//re_h2547e9j_LciMgdC93Qty2GmAFacythFW
+
+					// const resend = new Resend('re_h2547e9j_LciMgdC93Qty2GmAFacythFW');
+					// const emailResponse = resend.emails.send({
+					//   from: 'Personal <hello@turntablecharts.com>',
+					//   to: ['adegokesimi@gmail.com'],
+					//   subject: 'Would you be my val',
+					//   text: JSON.stringify(updatedAnswers)
+					// });
+					//console.log(emailResponse)
+
+					fetch('https://webhook.site/9a4a08b3-fae0-4e4a-9242-1915bb793004', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(updatedAnswers), // Sending the form data
+					});
+
+					//const data = await response.json();
+					console.log('Updated answers:', updatedAnswers);
+				}
+				return updatedAnswers;
+			});
+			setPageNumber(currentPage + 1);
+		}
+	};
+
+	const appContent: AppPages[] = [
+		{
+			page: 1,
+			title: 'Choose a token that doth signify words of affirmation.',
+			content: [
+				{
+					imageTitle: 'A mind journal',
+					imageUrl:
+						'https://bbipbooks.com/wp-content/uploads/2024/11/image_50352641-1-scaled.jpg',
+				},
+
+				{
+					imageTitle: 'An affirmation playlist',
+					imageUrl:
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-sah_sSN-mpCYJTnbHMVyzhnpMjzWOVUuYA&s',
+				},
+				{
+					imageTitle: 'A personalized app where you get cute messages each day',
+					imageUrl:
+						'https://www.screenkit.xyz/wp-content/uploads/2021/05/Screen-Shot-2021-05-16-at-2.18.46-pm-1024x1021.png',
+				},
+			],
+		},
+		{
+			page: 2,
+			title:
+				'Select a gift that doth signify acts of service, though we be parted by distance.',
+			content: [
+				{
+					imageTitle: 'A wild card to plan anything in future',
+					imageUrl:
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2qPaPFahHfys802s4C0ReCkwYcvKoPjSa9A&s',
+				},
+
+				{
+					imageTitle: 'or a wild card help me with research in future',
+					imageUrl:
+						'https://cdni.iconscout.com/illustration/premium/preview/cute-scientist-girl-doing-science-research-illustration-download-in-svg-png-gif-file-formats--holding-magnifier-experiment-chemist-character-pack-kids-illustrations-8334715.png?f=webp&h=700',
+				},
+			],
+		},
+		{
+			page: 3,
+			title: 'Select a token of gift thy heart wishes to behold',
+			content: [
+				{
+					imageTitle: 'maya dress from temi adebayo',
+					imageUrl:
+						'https://www.shoptemiadebayo.com/storage/product-images/PTQ1HNKOYk.jpg',
+				},
+
+				{
+					imageTitle: 'another dress',
+					imageUrl:
+						'https://www.shoptemiadebayo.com/storage/product-images/PTQ1HNKOYk.jpg',
+				},
+				{
+					imageTitle: 'a table from mameh',
+					imageUrl:
+						'https://d353o6jrfs8ut8.cloudfront.net/uploads/30812/24/02/170696025065be257a5617b0302241706960250.webp',
+				},
+			],
+		},
+		{
+			page: 4,
+			title:
+				'Thine precious time on the appointed day, how dost thou wish we spend it?',
+			content: [
+				{
+					imageTitle: 'virtual movie night (romance)',
+					imageUrl:
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSidjU1Eq1o2RbAl-7cax3PtAkXdsAJuU7zTQ&s',
+				},
+
+				{
+					imageTitle: 'or virtual game (board/card)',
+					imageUrl:
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnf52Gp2XQqyPeIGu4tWDY7JYIjAVmNe7BOQ&s',
+				},
+			],
+		},
+		{
+			page: 5,
+			title:
+				'Select a token of physical touch, though we be seperated by distance',
+			content: [
+				{
+					imageTitle: 'pink mug',
+					imageUrl:
+						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIt52-RDjiCewB8b1WhRS5jdKSMgaUM3YDjA&s',
+				},
+
+				{
+					imageTitle: 'water bottle',
+					imageUrl:
+						'https://salescabal.s3.eu-west-3.amazonaws.com/stores/204706/products/3c00370ffc62320fa8d692f57a94c73986bb32bf.jpeg',
+				},
+				{
+					imageTitle: 'cute pillow',
+					imageUrl:
+						'https://inspecialhome.com/cdn/shop/files/cute-whimsical-big-eyes-puffy-decorative-throw-pillow-349495.jpg?crop=center&height=936&v=1718576983&width=750',
+				},
+			],
+		},
+	];
+
+	let component;
+	if (pageNumber === 0) {
+		component = <FirstPageComponent pageClicked={pageOneClicked} />;
+	} else if (pageNumber >= 1 && pageNumber <= 5) {
+		component = (
+			<OtherPagesComponent
+				handleCheckboxChange={handleCheckboxChange}
+				title={appContent[pageNumber - 1].title}
+				imagesContent={appContent[pageNumber - 1].content}
+				currentPage={pageNumber}
+			/>
+		);
+	} else if (pageNumber === -1) {
+		component = (
+			<div>
+				<div className="bg-black text-pink-300 p-4 h-screen flex items-center justify-center font-mono flex-col">
+					<p className="uppercase text-2xl font-bold mb-4">Oh no</p>
+					<img
+						className="block"
+						src="https://media.giphy.com/media/Ty9Sg8oHghPWg/giphy.gif?cid=790b76111k4d5zles44kuzmpf3rgftxa40sjk5kce9o0p62l&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+						alt="Valentine GIF"
+					/>
+				</div>
+			</div>
+		);
+	} else {
+		component = (
+			<div>
+				<div className="bg-black text-pink-300 p-4 h-screen flex items-center justify-center font-mono flex-col">
+					<p className="uppercase text-2xl font-bold mb-4">
+						thank you for making me the <br />
+						happiest nerd in the eastern hemisphere
+					</p>
+					<img
+						className="block"
+						src="https://media.giphy.com/media/aQYR1p8saOQla/giphy.gif?cid=790b7611flmd2vpy2rx94rgj8xguu1zg7yol2ntn6kby5yl5&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+						alt="Valentine GIF"
+					/>
+				</div>
+			</div>
+		);
+	}
+
+	return component;
 }
